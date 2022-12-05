@@ -1,0 +1,7 @@
+env
+__pycache__
+.env
+.vercel
+models/__pycache__
+routes/__pycache__
+schema/__pycache__
