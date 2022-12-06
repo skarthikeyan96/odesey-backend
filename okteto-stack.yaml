@@ -1,0 +1,13 @@
+services:
+  fastapi:
+    public: true
+    image: karthik996/odesey-backend:latest
+    build: .
+    replicas: 1
+    environment:
+      - MONGODB_URI=${MONGODB_URI}
+    ports:
+      - 8080
+    resources:
+      cpu: 100m
+      memory: 128Mi
