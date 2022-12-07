@@ -1,11 +1,10 @@
-from fastapi import APIRouter, status, HTTPException
-from app.schema.user import UserAuth
-from app.models.user import User
-from passlib.context import CryptContext
-from dotenv import dotenv_values
 import pymongo
+from dotenv import dotenv_values
+from fastapi import APIRouter, HTTPException, status
+from passlib.context import CryptContext
 
-
+from app.models.user import User
+from app.schema.user import UserAuth
 
 password_context = CryptContext(schemes=["bcrypt"], deprecated="auto")
 config = dotenv_values(".env")

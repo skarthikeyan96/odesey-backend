@@ -1,18 +1,31 @@
+""" Summary: deps import """
 from datetime import timedelta
-from fastapi import APIRouter, Depends, HTTPException, status, Response
-from fastapi.security import OAuth2PasswordRequestForm
-from app.deps.auth_deps import get_current_user
 from uuid import UUID
 
-from app.models.user import User
-from app.utils import create_access_token, verify_password
+from fastapi import APIRouter, Depends, HTTPException, Response, status
+from fastapi.security import OAuth2PasswordRequestForm
 from pydantic import BaseModel
 
+from app.deps.auth_deps import get_current_user
+from app.models.user import User
+from app.utils import create_access_token, verify_password
+
+
 class Token(BaseModel):
+    """_summary_
+
+    Args:
+        BaseModel (_type_): _description_
+    """
     access_token: str
     token_type: str
 
 class UserData(BaseModel):
+    """_summary_
+
+    Args:
+        BaseModel (_type_): _description_
+    """
     user_id: UUID
     username: str
     email: str
@@ -25,6 +38,19 @@ ACCESS_TOKEN_EXPIRE_MINUTES = 30
 @auth_router.post('/login')
 # using oauth2PasswordRequestForm as a dependency
 async def login(response: Response, form_data: OAuth2PasswordRequestForm = Depends()):
+    """_summary_
+
+    Args:
+        response (Response): _description_
+        form_data (OAuth2PasswordRequestForm, optional): _description_. Defaults to Depends().
+
+    Raises:
+        HTTPException: _description_
+        HTTPException: _description_
+
+    Returns:
+        _type_: _description_
+    """
     email = form_data.username # entering email in the form
     password = form_data.password
 
@@ -56,4 +82,12 @@ async def login(response: Response, form_data: OAuth2PasswordRequestForm = Depen
 
 @auth_router.get('/user/me', response_model =UserData)
 async def get_current_active_user(user: User = Depends(get_current_user)):
+    """_summary_
+
+    Args:
+        user (User, optional): _description_. Defaults to Depends(get_current_user).
+
+    Returns:
+        _type_: _description_
+    """
     return user

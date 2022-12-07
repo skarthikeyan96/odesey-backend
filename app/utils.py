@@ -1,10 +1,11 @@
 # ImportError: cannot import name 'CryptContext' from 'passlib' -> 
 # Resolution: from passlib.context import CryptContext not from passlib import CryptContext
 from datetime import datetime, timedelta
-from passlib.context import CryptContext
 from typing import Union
-from jose import jwt
+
 from dotenv import dotenv_values
+from jose import jwt
+from passlib.context import CryptContext
 
 password_context = CryptContext(schemes=["bcrypt"], deprecated="auto")
 config = dotenv_values(".env")

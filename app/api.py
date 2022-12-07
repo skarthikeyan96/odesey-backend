@@ -1,12 +1,12 @@
-from fastapi import FastAPI
-from pydantic import BaseSettings
-from motor.motor_asyncio import AsyncIOMotorClient
 from beanie import init_beanie
-from app.models.user import User
-from app.routes.user import user_router
-from app.routes.auth import auth_router
-
+from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
+from motor.motor_asyncio import AsyncIOMotorClient
+from pydantic import BaseSettings
+
+from app.models.user import User
+from app.routes.auth import auth_router
+from app.routes.user import user_router
 
 app = FastAPI()
 
