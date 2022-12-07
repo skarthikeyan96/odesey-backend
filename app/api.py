@@ -4,6 +4,8 @@ from motor.motor_asyncio import AsyncIOMotorClient
 from beanie import init_beanie
 from app.models.user import User
 from app.routes.user import user_router
+from app.routes.auth import auth_router
+
 from fastapi.middleware.cors import CORSMiddleware
 
 app = FastAPI()
@@ -25,6 +27,7 @@ app.add_middleware(
 )
 
 app.include_router(user_router, tags=["user"], prefix="/user")
+app.include_router(auth_router, tags=["auth"], prefix="/auth")
 
 
 @app.get("/", tags=["Home"])
