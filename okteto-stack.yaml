@@ -3,7 +3,7 @@ services:
     public: true
     image: karthik996/odesey-backend:latest
     build: .
-    replicas: 1
+    replicas: 2
     environment:
       - MONGODB_URI=${MONGODB_URI}
       - JWT_SECRET=${JWT_SECRET}
