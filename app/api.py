@@ -2,13 +2,13 @@ from beanie import init_beanie
 from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
 from motor.motor_asyncio import AsyncIOMotorClient
-from pydantic import BaseSettings
 
 from app.models.user import User
 from app.models.journal import Journal
 from app.routes.auth import auth_router
 from app.routes.user import user_router
 from app.routes.journal import journal_router
+from app.settings import Settings
 
 app = FastAPI()
 
@@ -39,11 +39,6 @@ def get_root() -> dict:
         "message": "Odesey Backend"
     }
 
-class Settings(BaseSettings):
-    MONGODB_URI: str
-
-    class Config:
-        env_file = ".env"
 
 settings = Settings()
 

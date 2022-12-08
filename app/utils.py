@@ -7,11 +7,13 @@ from dotenv import dotenv_values
 from jose import jwt
 from passlib.context import CryptContext
 
+from app.settings import Settings
 password_context = CryptContext(schemes=["bcrypt"], deprecated="auto")
 config = dotenv_values(".env")
 
+settings = Settings()
 
-SECRET_KEY = config['JWT_SECRET']
+SECRET_KEY = settings.JWT_SECRET
 ALGORITHM = "HS256"
 
 
