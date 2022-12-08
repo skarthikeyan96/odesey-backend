@@ -1,6 +1,6 @@
 from typing import List
 from uuid import UUID
-from fastapi import APIRouter, status, Body, Request, Depends
+from fastapi import APIRouter, status, Request, Depends
 
 from app.models.journal import Journal
 from app.schema.journal import JournalCreate, JournalOutput, JournalUpdate
