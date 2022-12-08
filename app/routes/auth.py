@@ -74,9 +74,6 @@ async def login(response: Response, form_data: OAuth2PasswordRequestForm = Depen
     access_token_expires = timedelta(minutes=ACCESS_TOKEN_EXPIRE_MINUTES)
 
     access_token = create_access_token(user.user_id,expires_delta=access_token_expires)
-    # Store access tokens in cookie from the server
-    response.set_cookie('access_token', access_token, 15 * 60,
-                        15 * 60, '/', None, False, True, 'lax')
 
     return {"access_token": access_token, "token_type": "bearer"} # temporarily sending the access token in the API response.
 
@@ -91,3 +88,21 @@ async def get_current_active_user(user: User = Depends(get_current_user)):
         _type_: _description_
     """
     return user
+
+
+@auth_router.delete('/user/{username}', response_description="delete the user")
+async def delete_user(username, user: User = Depends(get_current_user)):
+    """_summary_
+
+    Args:
+        username (_type_): _description_
+        user (User, optional): _description_. Defaults to Depends(get_current_user).
+
+    Returns:
+        _type_: _description_
+    """ 
+    user = await User.find_one(User.username == username)
+    if user:
+        await user.delete()
+        return {"message": "success"}
+    # pass
