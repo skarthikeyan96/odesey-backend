@@ -5,8 +5,10 @@ from motor.motor_asyncio import AsyncIOMotorClient
 from pydantic import BaseSettings
 
 from app.models.user import User
+from app.models.journal import Journal
 from app.routes.auth import auth_router
 from app.routes.user import user_router
+from app.routes.journal import journal_router
 
 app = FastAPI()
 
@@ -28,12 +30,13 @@ app.add_middleware(
 
 app.include_router(user_router, tags=["user"], prefix="/user")
 app.include_router(auth_router, tags=["auth"], prefix="/auth")
+app.include_router(journal_router, tags=["journal"], prefix="/journal")
 
 
 @app.get("/", tags=["Home"])
 def get_root() -> dict:
     return {
-        "message": "Welcome to the okteto's app."
+        "message": "Odesey Backend"
     }
 
 class Settings(BaseSettings):
@@ -51,4 +54,4 @@ async def startup_db():
     # print(settings)
     conn_str = settings.MONGODB_URI
     client = AsyncIOMotorClient(conn_str, serverSelectionTimeoutMS=10000)
-    await init_beanie(client.journal_db, document_models=[User]) # If model name is not included here we will get an error #CollectionNotInitalised
+    await init_beanie(client.journal_db, document_models=[User, Journal]) # If model name is not included here we will get an error #CollectionNotInitalised

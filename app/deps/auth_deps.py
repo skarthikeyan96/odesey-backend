@@ -16,6 +16,11 @@ class TokenPayload(BaseModel):
     sub: UUID
     exp: int
 
+class UserOutput(BaseModel):
+    user_id: UUID
+    username: str
+    email: str
+
 
 async def get_current_user(token: str = Depends(oauth2_scheme)):
     # decode the payload and get the user id
@@ -41,5 +46,5 @@ async def get_current_user(token: str = Depends(oauth2_scheme)):
                 status_code=status.HTTP_404_NOT_FOUND, detail="user not found"
             )
         )
-    return user
+    return  user
     # pass
