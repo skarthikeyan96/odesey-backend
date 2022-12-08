@@ -19,7 +19,13 @@ origins = [
     "http://localhost:8080",
     "http://0.0.0.0:8080",
     "http://localhost:3000",
+    "https://odesey-frontend.vercel.app"
+    "https://fastapi-skarthikeyan96.cloud.okteto.net/journal",
+    "https://odesey-frontend.vercel.app/",
+    "*"
 ]
+
+
 app.add_middleware(
     CORSMiddleware,
     allow_origins=origins,
@@ -45,8 +51,6 @@ settings = Settings()
 
 @app.on_event("startup")
 async def startup_db():
-    print(settings)
-    # print(settings)
     conn_str = settings.MONGODB_URI
     client = AsyncIOMotorClient(conn_str, serverSelectionTimeoutMS=10000)
     await init_beanie(client.journal_db, document_models=[User, Journal]) # If model name is not included here we will get an error #CollectionNotInitalised
