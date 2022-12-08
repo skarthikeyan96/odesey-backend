@@ -6,5 +6,6 @@ services:
     replicas: 1
     environment:
       - MONGODB_URI=${MONGODB_URI}
+      - JWT_SECRET=${JWT_SECRET}
     ports:
       - 8080
